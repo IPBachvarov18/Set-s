@@ -6,7 +6,15 @@ using namespace std;
 
 vector <int> setUnion(vector <int> setA, vector <int> setB)
 {
+	vector <int> result;
 
+	// Concatenate the two vectors
+	result.insert(result.begin(), setA.begin(), setA.end());
+	result.insert(result.end()-1, setB.begin(), setB.end());
+
+	result = sanitiseSet(result);
+
+	return result;
 }
 
 vector <int> setDifference(vector <int> setA, vector <int> setB)
