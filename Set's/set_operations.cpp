@@ -19,7 +19,31 @@ vector <int> setUnion(vector <int> setA, vector <int> setB)
 
 vector <int> setDifference(vector <int> setA, vector <int> setB)
 {
+	vector <int> result;
 
+	for (int i = 0, j = 0; i < setA.size(); i++) {
+		if (j == setB.size()) {
+			// When the end of set B has been reached, the rest of set A must also be in the difference
+			result.insert(result.end(), setA.begin()+i, setA.end());
+			break;
+		}
+		if (setA[i] == setB[j]) {
+			j++;
+			continue;
+		}
+		if (setA[i] > setB[j]) {
+			// Move to the next element in set B
+			j++;
+			i--;
+			continue;
+		}
+
+		if (setA[i] != setB[j]) {
+			result.push_back(setA[i]);
+		}
+	}
+
+	return result;
 }
 
 vector <int> setIntersection(vector <int> setA, vector <int> setB)
