@@ -46,9 +46,13 @@ vector <int> setDifference(vector <int> setA, vector <int> setB)
 	return result;
 }
 
-vector <int> setIntersection(vector <int> setA, vector <int> setB)
+vector<int> SetIntersection(vector<int>setA, vector<int>setB)
 {
-
+	vector<int> result;
+	sort(setA.begin(), setA.end());
+	sort(setB.begin(), setB.end());
+	set_intersection(setA.begin(), setA.end(), setB.begin(), setB.end(),back_inserter(result));
+	return result;
 }
 
 // Sorts and removes duplicate elements
