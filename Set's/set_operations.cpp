@@ -46,7 +46,7 @@ vector <int> setDifference(vector <int> setA, vector <int> setB)
 	return result;
 }
 
-vector<int> SetIntersection(vector<int>setA, vector<int>setB)
+vector<int> setIntersection(vector<int>setA, vector<int>setB)
 {
 	vector<int> result;
 	sort(setA.begin(), setA.end());
