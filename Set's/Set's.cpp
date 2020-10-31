@@ -4,6 +4,23 @@
 
 using namespace std;
 
+void enterSet(vector <int> &a)
+{
+	size_t n;
+	int curr;
+
+	cout << "Enter set length: ";
+	cin >> n;
+
+	cout << "Enter the " << n << " elements of the set:\n";
+	for (size_t i = 0; i < n; i++) {
+		cin >> curr;
+		a.push_back(curr);
+	}
+
+	a = sanitiseSet(a);
+}
+
 bool menu(vector <int> setA, vector<int> setB)
 {
 
