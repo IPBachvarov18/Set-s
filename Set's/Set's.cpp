@@ -21,6 +21,20 @@ void enterSet(vector <int> &a)
 	a = sanitiseSet(a);
 }
 
+void printSet(vector <int> a)
+{
+    if (a.size() == 0) {
+        cout << "The set is empty\n";
+        return;
+    }
+
+    cout<<a[0];
+	for (size_t i = 0; i < a.size(); i++) {
+		cout << " " << a[i];
+	}
+	cout << endl;
+}
+
 bool menu(vector <int> setA, vector<int> setB)
 {
 
