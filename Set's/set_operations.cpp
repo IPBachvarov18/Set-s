@@ -55,6 +55,15 @@ vector<int> setIntersection(vector<int>setA, vector<int>setB)
 	return result;
 }
 
+vector <int> setSymmetricDifference(vector <int> setA, vector <int> setB)
+{
+	vector <int> result;
+
+	result = setDifference(setUnion(setA, setB), setIntersection(setA, setB));
+
+	return result;
+}
+
 // Sorts and removes duplicate elements
 vector <int> sanitiseSet(vector <int> setToSanitise)
 {
