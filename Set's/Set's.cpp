@@ -21,16 +21,10 @@ void enterSet(vector <int> &a)
 	a = sanitiseSet(a);
 }
 
-bool checkSet(vector <int> a)
+bool checkSets(vector <vector <int> > sets)
 {
-    if (a.size() == 0)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    if (sets.size()>1) return true;
+    return false;
 }
 
 void printSet(vector <int> a)
@@ -47,19 +41,115 @@ void printSet(vector <int> a)
 	cout << endl;
 }
 
-bool menu(vector <int> setA, vector<int> setB, vector<int> &a)
+void listSets(vector <vector <int> > sets)
+{
+	if (sets.size() == 0) {
+		cout << "There are no entered sets!\n";
+		return;
+	}
+
+	for (size_t i = 0; i < sets.size(); i++) {
+		cout << i + 1 << ": ";
+		printSet(sets[i]);
+	}
+}
+
+void addSet(vector <vector <int> > &sets)
+{
+	vector <int> temp;
+
+	enterSet(temp);
+
+	sets.push_back(temp);
+}
+
+void removeSet(vector <vector <int> > &sets)
+{
+	int choice;
+
+	cout << "\n\n---- Delete Set ----\n";
+
+	if (sets.size() == 0) {
+		cout << "There are no entered sets!\n";
+		return;
+	}
+
+	cout << "List of sets:\n";
+	listSets(sets);
+
+	cout << "\nChoose a set to delete: ";
+	cin >> choice;
+
+	sets.erase(sets.begin() + choice - 1);
+}
+
+bool editSetMenu(vector <vector <int> > &sets)
+{
+	int choice;
+
+	cout << "\n\n----- Set Menu -----\n";
+	cout << "Please select one of the following options:\n\n";
+	cout << "1: List sets\n";
+	cout << "2: Enter a new set\n";
+	cout << "3: Delete existing set\n";
+	cout << "9: Back to Main Menu\n\n";
+	cout << "Enter your choice: ";
+
+	cin >> choice;
+
+	switch (choice)
+	{
+	case 1:
+		listSets(sets);
+		return true;
+	case 2:
+		addSet(sets);
+		return true;
+	case 3:
+		removeSet(sets);
+		return true;
+	case 9:
+		return false;
+	default:
+		return false;
+
+	}
+}
+
+vector <int> binarySetOperation(vector <vector <int> > sets, vector <int>(*f)(vector <int> setA, vector <int> setB))
+{
+	size_t choice1, choice2;
+
+	if (!checkSets(sets)) {
+		cout << "You need at least 2 sets to perform this operation!\n";
+		return {};
+	}
+
+	cout << "List of sets\n";
+	listSets(sets);
+
+	cout << "\nChoose first set: ";
+	cin >> choice1;
+	cout << "Choose second set:";
+	cin >> choice2;
+
+	return f(sets[choice1 - 1], sets[choice2 - 1]);
+}
+
+bool menu(vector <vector <int> > &sets)
 {
 
     //*****************************************************************************
     // Switch menu to display the menu.
     //*****************************************************************************
+    cout<<"\n\n------ Main Menu ------\n";
     cout << "Please select one of the following options:  " << endl;
     cout << endl;
-    cout << "1: Enter Set" << endl;
-    cout << "2: setUnion" << endl;
-    cout << "3: setDifference" << endl;
-    cout << "4: setIntersection" << endl;
-    cout << "5: sanitiseSet" << endl;
+    cout << "1: Edit sets" << endl;
+    cout << "2: Find set union" << endl;
+    cout << "3: Find set difference" << endl;
+    cout << "4: Find set intersection" << endl;
+    cout << "5: Find set symmetric diffrence" << endl;
     cout << "9: Quit" << endl;
     cout << endl;
     int choice;
@@ -67,53 +157,25 @@ bool menu(vector <int> setA, vector<int> setB, vector<int> &a)
     cout << "Enter your choice: ";
 
     cin >> choice;
-    cout << endl;
     switch (choice)
     {
     case 1:
-        
-        enterSet(a);
+        while (editSetMenu(sets));
         return true;
     case 2:
-        if (checkSet(a) == false)
-        {
-            cout << "You have chosen setUnion" << endl;
-            setUnion(setA, setB);
-            return true;
-        }
-        else
-        {
-            cout << "You need to enter a Set!" << endl;
-        }
+        printSet(binarySetOperation(sets, setUnion));
         return true;
     case 3:
-        if (checkSet(a) == false)
-        {
-            cout << "You have chosen setDifference" << endl;
-            setDifference(setA, setB);
-            return true;
-        }
-        else
-        {
-            cout << "You need to enter a Set!" << endl;
-        }
+        printSet(binarySetOperation(sets, setDifference));
         return true;
     case 4:
-        if (checkSet(a) == false)
-        {
-            cout << "You have chosen setIntersection" << endl;
-            setIntersection(setA, setB);
-            return true;
-        }
-        else
-        {
-            cout << "You need to enter a Set!" << endl;
-        }
+        printSet(binarySetOperation(sets, setIntersection));
         return true;
     case 5:
+        printSet(binarySetOperation(sets, setSymmetricDifference));
         return true;
     case 9:
-        cout << "Goodbye!" << endl;;
+        cout<<"\nGoodbye!\n";
         return false;
     default:
         return false;
@@ -124,11 +186,11 @@ bool menu(vector <int> setA, vector<int> setB, vector<int> &a)
 
 int main()
 {
-    vector<int> setA = { 1 }, setB = { 1 };
-    vector <int> a = { 1 };
+    vector <vector <int> > sets;
+
     bool showMenu = true;
     do 
     {
-        showMenu = menu(setA,setB,a);
+        showMenu = menu(sets);
     } while (showMenu);
 }
