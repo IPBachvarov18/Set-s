@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <vector>
+#include <iterator>
 #include "set_operations.h"
 
 using namespace std;
