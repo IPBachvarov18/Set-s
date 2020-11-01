@@ -41,7 +41,7 @@ void printSet(vector <int> a)
     }
 
     cout<<a[0];
-	for (size_t i = 0; i < a.size(); i++) {
+	for (size_t i = 1; i < a.size(); i++) {
 		cout << " " << a[i];
 	}
 	cout << endl;
