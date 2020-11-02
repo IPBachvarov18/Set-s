@@ -109,8 +109,8 @@ bool editSetMenu(vector <vector <int> > &sets)
 
 	cout << "\n\n----- Set Menu -----\n";
 	cout << "Please select one of the following options:\n\n";
-	cout << "1: List sets\n";
-	cout << "2: Enter a new set\n";
+	cout << "1: Enter a new set\n";
+	cout << "2: List sets\n";
 	cout << "3: Delete existing set\n";
 	cout << "9: Back to Main Menu\n\n";
 	cout << "Enter your choice: ";
@@ -120,10 +120,10 @@ bool editSetMenu(vector <vector <int> > &sets)
 	switch (choice)
 	{
 	case 1:
-		listSets(sets);
+		addSet(sets);
 		return true;
 	case 2:
-		addSet(sets);
+		listSets(sets);
 		return true;
 	case 3:
 		removeSet(sets);
@@ -190,15 +190,19 @@ bool menu(vector <vector <int> > &sets)
         while (editSetMenu(sets));
         return true;
     case 2:
+		cout << "The union is: ";
         printSet(binarySetOperation(sets, setUnion));
         return true;
     case 3:
+		cout << "The difference is: ";
         printSet(binarySetOperation(sets, setDifference));
         return true;
     case 4:
+		cout << "The intersection is: ";
         printSet(binarySetOperation(sets, setIntersection));
         return true;
     case 5:
+		cout << "The symmetric difference is: ";
         printSet(binarySetOperation(sets, setSymmetricDifference));
         return true;
     case 9:
