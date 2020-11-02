@@ -15,7 +15,7 @@ bool enterSet(vector <int> &a)
 	cout << "Enter set length: ";
 	if (!safeInput(n, 1, (size_t)SIZE_MAX)) {
 		cout<<"Invalid set length!\n";
-		return false;;
+		return false;
 	}
 
 	cout << "Enter the " << n << " elements of the set:\n";
@@ -190,19 +190,15 @@ bool menu(vector <vector <int> > &sets)
         while (editSetMenu(sets));
         return true;
     case 2:
-		cout << "The union is: ";
         printSet(binarySetOperation(sets, setUnion));
         return true;
     case 3:
-		cout << "The difference is: ";
         printSet(binarySetOperation(sets, setDifference));
         return true;
     case 4:
-		cout << "The intersection is: ";
         printSet(binarySetOperation(sets, setIntersection));
         return true;
     case 5:
-		cout << "The symmetric difference is: ";
         printSet(binarySetOperation(sets, setSymmetricDifference));
         return true;
     case 9:
