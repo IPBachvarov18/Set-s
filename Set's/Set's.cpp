@@ -1,24 +1,38 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "set_operations.h"
+#include "safe_input.h"
 
 using namespace std;
 
-void enterSet(vector <int> &a)
+bool enterSet(vector <int> &a)
 {
+	bool check=true;
 	size_t n;
 	int curr;
 
 	cout << "Enter set length: ";
-	cin >> n;
+	if (!safeInput(n, 1, (size_t)SIZE_MAX)) {
+		cout<<"Invalid set length!\n";
+		return false;;
+	}
 
 	cout << "Enter the " << n << " elements of the set:\n";
 	for (size_t i = 0; i < n; i++) {
-		cin >> curr;
-		a.push_back(curr);
+		if (!safeInput(curr)) {
+			check = false;
+		}
+		if (check) a.push_back(curr);
+	}
+
+	if (!check) {
+		cout<<"An invalid number has been encountered!\n";
+		return false;
 	}
 
 	a = sanitiseSet(a);
+	return true;
 }
 
 bool checkSets(vector <vector <int> > sets)
@@ -58,14 +72,17 @@ void addSet(vector <vector <int> > &sets)
 {
 	vector <int> temp;
 
-	enterSet(temp);
+	if (!enterSet(temp)) {
+		cout<<"Aborting...\n";
+		return;
+	}
 
 	sets.push_back(temp);
 }
 
 void removeSet(vector <vector <int> > &sets)
 {
-	int choice;
+	size_t choice;
 
 	cout << "\n\n---- Delete Set ----\n";
 
@@ -78,7 +95,10 @@ void removeSet(vector <vector <int> > &sets)
 	listSets(sets);
 
 	cout << "\nChoose a set to delete: ";
-	cin >> choice;
+	if (!safeInput(choice, 1, sets.size())) {
+		cout<<"Invalid choice!\n";
+		return;
+	}
 
 	sets.erase(sets.begin() + choice - 1);
 }
@@ -95,7 +115,7 @@ bool editSetMenu(vector <vector <int> > &sets)
 	cout << "9: Back to Main Menu\n\n";
 	cout << "Enter your choice: ";
 
-	cin >> choice;
+	safeInput(choice);
 
 	switch (choice)
 	{
@@ -129,9 +149,16 @@ vector <int> binarySetOperation(vector <vector <int> > sets, vector <int>(*f)(ve
 	listSets(sets);
 
 	cout << "\nChoose first set: ";
-	cin >> choice1;
+	if (!safeInput(choice1, 1, sets.size())) {
+		cout<<"Aborting due to invalid choice...\n";
+		return {};
+	}
+
 	cout << "Choose second set:";
-	cin >> choice2;
+	if (!safeInput(choice2, 1, sets.size())) {
+		cout << "Aborting due to invalid choice...\n";
+		return {};
+	}
 
 	return f(sets[choice1 - 1], sets[choice2 - 1]);
 }

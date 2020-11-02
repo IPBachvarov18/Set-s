@@ -21,9 +21,15 @@
     <ClCompile Include="set_operations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="safe_input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="set_operations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="safe_input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

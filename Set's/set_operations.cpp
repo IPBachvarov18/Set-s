@@ -70,6 +70,8 @@ vector <int> sanitiseSet(vector <int> setToSanitise)
 {
 	vector <int> sanitisedSet;
 
+	if (setToSanitise.size()==0) return setToSanitise;
+
 	sort(setToSanitise.begin(), setToSanitise.end());
 
 	sanitisedSet.push_back(setToSanitise[0]);
